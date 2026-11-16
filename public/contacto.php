@@ -1,7 +1,7 @@
 <?php
 /**
  * Procesa el formulario de /contacto/ y envía un email.
- * Hostinger ejecuta PHP de forma nativa: este archivo se sube junto al resto de la web.
+ * Lo ejecuta el Apache + PHP del contenedor (Dockerfile); mail() sale por SMTP con msmtp (variables SMTP_* en Easypanel).
  *
  * CONFIGURAR: cambiar $DESTINO por el email donde quieres recibir los mensajes.
  * Recomendado: crear un buzón en Hostinger (p. ej. contacto@tudominio) y usarlo también en $REMITENTE,
@@ -9,7 +9,7 @@
  */
 
 $DESTINO   = 'jjtapiador1@gmail.com';   // Donde llegan los mensajes (email de contacto del aviso legal)
-$REMITENTE = 'web@vilabgaming.es';      // TODO: crear este buzón en Hostinger (Correos electrónicos) antes de publicar
+$REMITENTE = 'web@vilabgaming.es';      // Debe ser el mismo buzón que SMTP_USER en Easypanel
 
 function volver(string $estado): void {
     header('Location: /contacto/?estado=' . $estado);

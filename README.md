@@ -1,6 +1,6 @@
 # VI LAB GAMING
 
-Portal de noticias, filtraciones y guía de GTA VI. Hecho con [Astro](https://astro.build) y publicado como web estática en Hostinger.
+Portal de noticias, filtraciones y guía de GTA VI. Hecho con [Astro](https://astro.build) y publicado como web estática en un VPS de Hostinger (Easypanel).
 
 ## Comandos
 
@@ -83,15 +83,20 @@ En ambos casos, `destacado: true` / `destacada: true` hace que aparezca en el ca
 - `recursos/imagenes/CREDITOS.md` indica qué imágenes hay que citar (código `Rockstar Games`) y cuáles no (`PD`).
 - `recursos/videos.md` tiene los vídeos oficiales con enlace y resumen (referencia). La web usa `src/content/videos.yaml`.
 
-## Publicar (GitHub → Hostinger)
+## Publicar (GitHub → Easypanel)
 
-La web se publica sola al subir cambios a GitHub:
+La web vive en un VPS de Hostinger gestionado con Easypanel, que la construye con el `Dockerfile`:
 
 1. Guarda los cambios en Git y súbelos a la rama `main` (`git add -A`, `git commit -m "..."`, `git push`).
-2. GitHub Actions (`.github/workflows/publicar.yml`) ejecuta `npm run build` y guarda el resultado en la rama `hostinger`.
-3. Hostinger (hPanel → Avanzado → GIT, rama `hostinger`, despliegue automático) la descarga en `public_html`.
+2. Easypanel (servicio de tipo *App*, fuente GitHub, rama `main`, compilación *Dockerfile*) descarga el
+   repositorio, ejecuta `npm run build` y sirve `dist/` con Apache + PHP (puerto 80).
+   Con el despliegue automático activado lo hace solo en cada `push`; si no, pulsa *Deploy*.
+3. El formulario de contacto envía el correo por SMTP. Variables de entorno del servicio en Easypanel:
+   `SMTP_USER=web@vilabgaming.es`, `SMTP_PASS=<contraseña del buzón>` y, opcionales,
+   `SMTP_HOST` (por defecto `smtp.hostinger.com`) y `SMTP_PORT` (por defecto `465`).
+   La contraseña solo se guarda en Easypanel, nunca en el repositorio.
 
-En GitHub, pestaña *Actions*, se ve si la publicación ha ido bien. No toques la rama `hostinger` a mano.
+Si un despliegue falla, el registro está en Easypanel → servicio → *Deployments*.
 
 ## Antes de la primera publicación
 
