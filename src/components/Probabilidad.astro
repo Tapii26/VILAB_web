@@ -1,0 +1,18 @@
+---
+/**
+ * Etiqueta de probabilidad de una filtración, con color de semáforo.
+ * El número (1-5) es interno: en la web solo se muestra la palabra.
+ */
+import { textoProbabilidad } from '../utils/content';
+
+export interface Props {
+  nivel: number;
+}
+
+const { nivel } = Astro.props;
+---
+
+<span class={`probabilidad probabilidad-${nivel}`}>
+  <span class="probabilidad-luz" aria-hidden="true"></span>
+  {textoProbabilidad(nivel)}
+</span>

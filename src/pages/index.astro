@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import PostCard from '../components/PostCard.astro';
+import QuickNav from '../components/QuickNav.astro';
+import { GUIDE_SECTIONS, SITE } from '../config/site';
+import { enlacesGuia, getPublished } from '../utils/content';
+
+const enlaces = await enlacesGuia();
+const noticias = (await getPublished('noticias')).slice(0, 3);
+const filtraciones = (await getPublished('filtraciones')).filter((p) => p.data.estado === 'pendiente').slice(0, 3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
+  inLanguage: SITE.lang,
+};
+---
+
+<BaseLayout jsonLd={jsonLd}>
+  <!-- BANNER: imagen configurada en HERO (src/config/site.ts) + título + cuenta atrás -->
+  <Hero>
+    <h1>Todo sobre <span class="accent">GTA 6</span> en un solo lugar</h1>
+    <p class="lead">Noticias, filtraciones, trucos y la guía más completa de GTA VI en español.</p>
+  </Hero>
+
+  <!-- ACCESOS RÁPIDOS: opciones configuradas en QUICK_NAV (src/config/site.ts) -->
+  <QuickNav />
+
+  <!-- ÚLTIMAS NOTICIAS -->
+  <section class="container section">
+    <div class="section-head">
+      <h2>Últimas noticias</h2>
+      <a href="/noticias/">Ver todas →</a>
+    </div>
+    {noticias.length ? (
+      <div class="grid">
+        {noticias.map((p) => <PostCard href={`/noticias/${p.id}/`} {...p.data} />)}
+      </div>
+    ) : <p class="muted">Muy pronto publicaremos las primeras noticias.</p>}
+  </section>
+
+  <!-- ÚLTIMAS FILTRACIONES -->
+  <section class="container section">
+    <div class="section-head">
+      <h2>Filtraciones y rumores</h2>
+      <a href="/filtraciones/">Ver todas →</a>
+    </div>
+    {filtraciones.length ? (
+      <div class="grid">
+        {filtraciones.map((p) => <PostCard href={`/filtraciones/${p.id}/`} {...p.data} />)}
+      </div>
+    ) : <p class="muted">Todavía no hay filtraciones publicadas.</p>}
+  </section>
+
+  <!-- ACCESOS A LA GUÍA -->
+  <section class="container section">
+    <div class="section-head">
+      <h2>Guía de GTA VI</h2>
+      <a href="/guia/">Ir a la guía →</a>
+    </div>
+    <div class="grid grid-small">
+      {GUIDE_SECTIONS.map((s) => (
+        <a class="tile" href={enlaces[s.slug]}>
+          <strong>{s.title}</strong>
+          <span class="small muted">{s.description}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

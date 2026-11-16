@@ -1,0 +1,66 @@
+---
+/** Política de derechos de autor, retirada de contenidos y correcciones. Texto base: Textos_legales_blog_GTA_VI.docx. */
+import PageLayout from '../../layouts/PageLayout.astro';
+import { LEGAL, SITE } from '../../config/site';
+import { formatDate } from '../../utils/content';
+
+const email = LEGAL.email;
+---
+
+<PageLayout
+  title="Derechos de autor y retirada de contenidos"
+  description={`Política de derechos de autor, retirada de contenidos y correcciones de ${SITE.name}.`}
+  heading="Derechos de autor y retirada de contenidos"
+  noindex
+>
+  <div class="prose">
+    <p class="small muted">Última actualización: {formatDate(new Date(LEGAL.actualizado))}</p>
+
+    <h2>1. Cómo usamos imágenes y vídeos</h2>
+    <ul>
+      <li>Imágenes y gráficos propios o creados para la Web.</li>
+      <li>Imágenes con licencias libres o de uso permitido, indicando la fuente y la licencia cuando se requiere.</li>
+      <li>
+        Material promocional oficial que sus titulares publican para su difusión (por ejemplo, el arte y las capturas
+        de Rockstar Games), usado con fines informativos y siempre con su crédito: «Imagen: Rockstar Games».
+      </li>
+      <li>Vídeos incrustados desde los canales oficiales de sus titulares, sin alojarlos en nuestros servidores.</li>
+    </ul>
+    <p>
+      No publicamos material filtrado ni obtenido sin autorización de sus titulares, ni promovemos copias no
+      autorizadas de ningún juego. Cuando informamos sobre una filtración, lo hacemos sin alojar ni enlazar el
+      material filtrado.
+    </p>
+
+    <h2>2. Cómo pedir la retirada de un contenido</h2>
+    <p>
+      Si eres titular de derechos, o su representante, y crees que algún contenido de la Web infringe tus derechos,
+      escribe a <a href={`mailto:${email}`}>{email}</a> indicando:
+    </p>
+    <ul>
+      <li>Tu nombre, datos de contacto y, si actúas en representación de alguien, la acreditación.</li>
+      <li>La URL exacta del contenido y una descripción de la obra protegida.</li>
+      <li>La acreditación de que eres titular de los derechos o tienes autorización para actuar.</li>
+      <li>Una declaración de buena fe de que el uso no está autorizado y de que la información es exacta.</li>
+    </ul>
+    <p>
+      Revisaremos la solicitud con diligencia y, si procede, retiraremos o modificaremos el contenido lo antes
+      posible. Te contestaremos con nuestra decisión. Si el contenido es nuestro y consideramos que su uso es
+      legítimo, te lo explicaremos.
+    </p>
+
+    <h2>3. Correcciones y actualizaciones</h2>
+    <p>
+      Cuando una noticia cambie o contenga un error, la corregiremos y lo indicaremos con una nota de corrección o
+      actualización en el propio artículo, con la fecha. Las informaciones basadas en rumores se mantienen
+      etiquetadas como tales hasta que se confirmen o desmientan.
+    </p>
+
+    <h2>4. Derechos de imagen y datos de terceros</h2>
+    <p>
+      No publicamos datos personales de terceros (por ejemplo, trabajadores de las compañías) ni imágenes de
+      personas sin su consentimiento o sin base legal. Si crees que aparece información tuya que no debería estar
+      publicada, escríbenos a <a href={`mailto:${email}`}>{email}</a>.
+    </p>
+  </div>
+</PageLayout>

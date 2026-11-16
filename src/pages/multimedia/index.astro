@@ -1,0 +1,39 @@
+---
+/** Portada de Multimedia: un carrusel de tráilers y otro de imágenes, cada uno con «Ver más». */
+import PageLayout from '../../layouts/PageLayout.astro';
+import Carrusel from '../../components/Carrusel.astro';
+import VideoCard from '../../components/VideoCard.astro';
+import ImagenCard from '../../components/ImagenCard.astro';
+import Lightbox from '../../components/Lightbox.astro';
+import { getGaleria, getVideos, paraCarrusel } from '../../utils/content';
+
+const videos = paraCarrusel(await getVideos(), (v) => v.data.destacado);
+const imagenes = paraCarrusel(await getGaleria(), (i) => i.data.destacada);
+---
+
+<PageLayout
+  title="Tráilers, imágenes y vídeos de GTA 6"
+  description="Todos los tráilers oficiales de GTA 6 y las mejores imágenes del juego: arte oficial, personajes y lugares de Leonida y Vice City."
+  heading="Multimedia"
+  intro="Tráilers, arte oficial y capturas de GTA VI."
+>
+  <Carrusel
+    titulo="Tráilers"
+    href="/multimedia/videos/"
+    verMas="Todos los vídeos"
+    fuente="Vídeos del canal oficial de Rockstar Games en YouTube, reproducidos con el reproductor de YouTube."
+  >
+    {videos.map((video) => <li><VideoCard video={video} /></li>)}
+  </Carrusel>
+
+  <Carrusel
+    titulo="Imágenes"
+    href="/multimedia/imagenes/"
+    verMas="Toda la galería"
+    fuente="Imágenes: Rockstar Games (rockstargames.com/VI/media). Material oficial usado con fines informativos."
+  >
+    {imagenes.map((imagen) => <li><ImagenCard imagen={imagen} /></li>)}
+  </Carrusel>
+
+  <Lightbox />
+</PageLayout>

@@ -1,0 +1,37 @@
+---
+/**
+ * Listado de filtraciones según su estado, con pestañas para moverse entre
+ * «En el aire» (pendientes), «Confirmados» y «Descartados».
+ * Lo usan las tres páginas de src/pages/filtraciones/.
+ */
+import type { CollectionEntry } from 'astro:content';
+import PostCard from './PostCard.astro';
+
+export interface Props {
+  estado: 'pendiente' | 'confirmado' | 'descartado';
+  todas: CollectionEntry<'filtraciones'>[];
+  vacio: string;
+}
+
+const { estado, todas, vacio } = Astro.props;
+const posts = todas.filter((p) => p.data.estado === estado);
+const contar = (e: Props['estado']) => todas.filter((p) => p.data.estado === e).length;
+
+const PESTANAS = [
+  { estado: 'pendiente', label: 'En el aire', href: '/filtraciones/' },
+  { estado: 'confirmado', label: 'Confirmados', href: '/filtraciones/confirmados/' },
+  { estado: 'descartado', label: 'Descartados', href: '/filtraciones/descartados/' },
+] as const;
+---
+
+<nav class="pestanas" aria-label="Estado de las filtraciones">
+  {PESTANAS.map((p) => (
+    <a href={p.href} aria-current={p.estado === estado ? 'page' : undefined}>
+      {p.label} <span class="pestanas-num">{contar(p.estado)}</span>
+    </a>
+  ))}
+</nav>
+
+{posts.length ? (
+  <div class="grid">{posts.map((p) => <PostCard href={`/filtraciones/${p.id}/`} {...p.data} />)}</div>
+) : <p class="muted">{vacio}</p>}

@@ -1,0 +1,45 @@
+---
+/** Toda la galería, agrupada por categoría. Imágenes y datos en src/content/galeria/ */
+import PageLayout from '../../layouts/PageLayout.astro';
+import ImagenCard from '../../components/ImagenCard.astro';
+import Lightbox from '../../components/Lightbox.astro';
+import { getGaleria } from '../../utils/content';
+
+const imagenes = await getGaleria();
+// Ancla sin tildes ni espacios: "Arte oficial" → arte-oficial, "Acción" → accion
+const ancla = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-');
+const CATEGORIAS = ['Arte oficial', 'Personajes', 'Lugares', 'Acción'] as const;
+const grupos = CATEGORIAS.map((categoria) => ({
+  categoria,
+  items: imagenes.filter((i) => i.data.categoria === categoria),
+})).filter((g) => g.items.length > 0);
+---
+
+<PageLayout
+  title="Imágenes y arte oficial de GTA 6"
+  description="Galería de GTA 6: arte oficial, personajes, lugares de Leonida y Vice City y capturas de acción publicadas por Rockstar Games."
+  heading="Galería de imágenes"
+  intro="Arte oficial, personajes y lugares de GTA VI. Pulsa una imagen para verla ampliada."
+  breadcrumbs={[{ label: 'Multimedia', href: '/multimedia/' }]}
+  volver={{ href: '/multimedia/', label: 'Multimedia' }}
+>
+  <nav class="inline-list galeria-indice" aria-label="Categorías">
+    {grupos.map((g) => <a class="tag" href={`#${ancla(g.categoria)}`}>{g.categoria} ({g.items.length})</a>)}
+  </nav>
+
+  {grupos.map((g) => (
+    <section class="section" id={ancla(g.categoria)}>
+      <h2>{g.categoria}</h2>
+      <div class="grid media-grid">
+        {g.items.map((imagen) => <ImagenCard imagen={imagen} />)}
+      </div>
+    </section>
+  ))}
+
+  <p class="credito fuente-nota">
+    Todas las imágenes pertenecen a Rockstar Games y proceden de su web oficial (<a href="https://www.rockstargames.com/VI/media" target="_blank" rel="noopener">rockstargames.com/VI/media</a>).
+    Se usan con fines informativos.
+  </p>
+
+  <Lightbox />
+</PageLayout>

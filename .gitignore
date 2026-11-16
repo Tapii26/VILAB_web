@@ -1,0 +1,22 @@
+# build
+dist/
+.astro/
+
+# dependencias
+node_modules/
+
+# logs y entorno
+npm-debug.log*
+.env
+.env.*
+
+# sistema
+.DS_Store
+Thumbs.db
+.vscode/
+
+# documentos personales (datos legales ya están en src/config/site.ts)
+*.docx
+
+# ajustes locales de Claude
+.claude/settings.local.json

@@ -1,0 +1,13 @@
+---
+/** Etiqueta de una filtración ya resuelta: «Confirmado» (verde) o «Descartado» (rojo). */
+export interface Props {
+  estado: 'confirmado' | 'descartado';
+}
+
+const { estado } = Astro.props;
+---
+
+<span class={`probabilidad ${estado === 'confirmado' ? 'probabilidad-1' : 'probabilidad-5'}`}>
+  <span class="probabilidad-luz" aria-hidden="true"></span>
+  {estado === 'confirmado' ? 'Confirmado' : 'Descartado'}
+</span>

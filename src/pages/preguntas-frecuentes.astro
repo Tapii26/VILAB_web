@@ -1,0 +1,61 @@
+---
+/**
+ * Preguntas frecuentes. Para añadir/editar preguntas, modificar el array FAQ.
+ * Se genera automáticamente el marcado FAQPage para Google.
+ * IMPORTANTE: revisar las respuestas a medida que haya información oficial.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+
+const fecha = new Date(SITE.launchDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const FAQ = [
+  {
+    q: '¿Cuándo sale GTA 6?',
+    a: `La fecha de lanzamiento anunciada por Rockstar Games es el ${fecha}.`,
+  },
+  {
+    q: '¿En qué plataformas saldrá GTA 6?',
+    a: 'GTA VI está confirmado para PlayStation 5 y Xbox Series X|S. Rockstar no ha anunciado todavía una versión para PC.',
+  },
+  {
+    q: '¿Cuánto costará GTA 6?',
+    a: 'Rockstar aún no ha confirmado el precio oficial. Actualizaremos esta respuesta en cuanto se anuncie.',
+  },
+  {
+    q: '¿Dónde transcurre GTA 6?',
+    a: 'El juego se desarrolla en el estado ficticio de Leonida, inspirado en Florida, con Vice City como ciudad principal.',
+  },
+  {
+    q: '¿Quiénes son los protagonistas de GTA 6?',
+    a: 'Los protagonistas son Lucia y Jason, la primera pareja protagonista de la saga.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+---
+
+<PageLayout
+  title="Preguntas frecuentes sobre GTA 6"
+  description="Fecha de lanzamiento, precio, plataformas, mapa y protagonistas: respondemos las preguntas más frecuentes sobre GTA 6."
+  heading="Preguntas frecuentes"
+  intro="Las dudas más habituales sobre GTA VI, siempre actualizadas."
+  jsonLd={jsonLd}
+>
+  <div class="faq">
+    {FAQ.map(({ q, a }) => (
+      <details>
+        <summary>{q}</summary>
+        <p>{a}</p>
+      </details>
+    ))}
+  </div>
+</PageLayout>

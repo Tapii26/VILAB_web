@@ -1,0 +1,52 @@
+---
+/**
+ * Vídeo de YouTube. Muestra la miniatura (descargada al generar la web y servida desde nuestro servidor)
+ * y solo carga el reproductor al pulsar. Hasta entonces no se contacta con YouTube ni hay cookies.
+ * El aviso bajo el vídeo informa de que reproducir carga YouTube (consentimiento al pulsar; ver /legal/cookies/).
+ */
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { formatDate } from '../utils/content';
+
+export interface Props {
+  video: CollectionEntry<'videos'>;
+  // true = muestra el resumen (página de todos los vídeos)
+  completo?: boolean;
+}
+
+const { video, completo = false } = Astro.props;
+const { titulo, youtube, fecha, duracion, resumen, canal } = video.data;
+---
+
+<article class="media-card">
+  <button class="video-facade" type="button" data-youtube={youtube} aria-label={`Reproducir: ${titulo}`}>
+    <Image src={`https://i.ytimg.com/vi/${youtube}/hqdefault.jpg`} alt="" width={480} height={360} widths={[480]} sizes="(max-width: 700px) 85vw, 360px" format="webp" loading="lazy" />
+    <span class="video-play" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+    </span>
+    {duracion && <span class="video-duracion">{duracion}</span>}
+  </button>
+  <div class="media-card-body">
+    <h3>{titulo}</h3>
+    <p class="small muted"><time datetime={fecha.toISOString()}>{formatDate(fecha)}</time></p>
+    {completo && <p class="muted">{resumen}</p>}
+    <p class="video-aviso">Al reproducir se carga YouTube (Google), que puede usar cookies. <a href="/legal/cookies/">Más información</a></p>
+    <small class="credito">
+      Vídeo: {canal} · <a href={`https://www.youtube.com/watch?v=${youtube}`} target="_blank" rel="noopener">Ver en YouTube</a>
+    </small>
+  </div>
+</article>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const boton = (e.target as HTMLElement).closest<HTMLButtonElement>('.video-facade');
+    if (!boton) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${boton.dataset.youtube}?autoplay=1&rel=0`;
+    iframe.title = boton.getAttribute('aria-label') ?? 'Vídeo de YouTube';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    iframe.className = 'video-iframe';
+    boton.replaceWith(iframe);
+  });
+</script>

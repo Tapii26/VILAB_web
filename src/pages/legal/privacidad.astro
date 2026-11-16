@@ -1,0 +1,113 @@
+---
+/**
+ * Política de privacidad (RGPD / LOPDGDD). Texto base: Textos_legales_blog_GTA_VI.docx, adaptado a lo que la web
+ * usa de verdad: formulario de contacto, registros del servidor y vídeos de YouTube. Si se añaden comentarios,
+ * newsletter, analítica o publicidad, hay que añadir sus filas (están en el documento original).
+ */
+import PageLayout from '../../layouts/PageLayout.astro';
+import { LEGAL, SITE } from '../../config/site';
+import { formatDate } from '../../utils/content';
+
+const { responsable } = LEGAL;
+const email = LEGAL.email;
+---
+
+<PageLayout title="Política de privacidad" description={`Política de privacidad de ${SITE.name}.`} heading="Política de privacidad" noindex>
+  <div class="prose">
+    <p class="small muted">Última actualización: {formatDate(new Date(LEGAL.actualizado))}</p>
+
+    <h2>1. Responsable del tratamiento</h2>
+    <p>
+      El responsable de los datos personales tratados a través de {LEGAL.dominios.join(', ')} es
+      {' '}<strong>{responsable.nombre}</strong>, con NIF {responsable.nif}, domicilio en {LEGAL.domicilio} y email de
+      contacto <a href={`mailto:${email}`}>{email}</a>.
+    </p>
+    <p>Esta política cumple con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).</p>
+
+    <h2>2. Qué datos tratamos, para qué y con qué base</h2>
+    <p>En este blog no hace falta registrarse. Solo tratamos datos en los casos siguientes:</p>
+    <table>
+      <thead>
+        <tr><th>Finalidad</th><th>Datos tratados</th><th>Base jurídica</th><th>Conservación</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Atención de consultas (formulario o email de contacto)</td>
+          <td>Nombre, email, asunto y contenido del mensaje</td>
+          <td>Consentimiento (art. 6.1.a RGPD)</td>
+          <td>El tiempo necesario para atender la consulta y, después, durante los plazos legales</td>
+        </tr>
+        <tr>
+          <td>Seguridad y funcionamiento del sitio</td>
+          <td>Dirección IP, registros de acceso y datos técnicos del dispositivo</td>
+          <td>Interés legítimo en la seguridad del servicio (art. 6.1.f RGPD)</td>
+          <td>12 meses</td>
+        </tr>
+        <tr>
+          <td>Vídeos de YouTube incrustados</td>
+          <td>Dirección IP y datos de navegación, que recibe Google al reproducir un vídeo</td>
+          <td>Consentimiento (art. 6.1.a RGPD), que das al pulsar «reproducir»</td>
+          <td>Según la política de privacidad de Google</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      No solicitamos datos especialmente protegidos (salud, ideología, religión, etc.) y te pedimos que no los
+      incluyas en tus mensajes. Los datos marcados como obligatorios en el formulario son necesarios para atender
+      tu solicitud; si no se facilitan, no podremos gestionarla.
+    </p>
+    <p>La Web no utiliza herramientas de analítica, publicidad, comentarios ni boletín de noticias.</p>
+
+    <h2>3. Destinatarios y proveedores</h2>
+    <p>
+      No cedemos tus datos a terceros salvo obligación legal. Utilizamos proveedores que actúan como encargados del
+      tratamiento y con los que existe el correspondiente acuerdo de encargo de tratamiento:
+    </p>
+    <ul>
+      <li><strong>Hostinger International Ltd</strong>, como proveedor de alojamiento web y correo electrónico.</li>
+    </ul>
+    <p>
+      Si decides reproducir un vídeo de YouTube, Google Ireland Limited recibe directamente tus datos de navegación
+      como responsable independiente, conforme a su propia política de privacidad.
+    </p>
+    <p>
+      El servidor donde se alojan los datos está situado en {LEGAL.servidor}. Si alguno de los proveedores trata
+      datos fuera del Espacio Económico Europeo, la transferencia se realizará con las garantías previstas en el RGPD
+      {' '}(decisión de adecuación, cláusulas contractuales tipo u otros mecanismos válidos). También podremos comunicar
+      datos a administraciones, jueces y cuerpos de seguridad cuando una norma lo exija.
+    </p>
+
+    <h2>4. Tus derechos</h2>
+    <p>
+      Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y
+      portabilidad, así como retirar el consentimiento en cualquier momento, escribiendo a
+      {' '}<a href={`mailto:${email}`}>{email}</a> e indicando el derecho que ejercitas. Podemos pedirte una prueba de
+      identidad. Responderemos en el plazo máximo de un mes, ampliable en casos de especial complejidad.
+    </p>
+    <p>
+      Si consideras que no hemos tratado tus datos correctamente, puedes reclamar ante la Agencia Española de
+      Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).
+    </p>
+
+    <h2>5. Menores de edad</h2>
+    <p>
+      La Web está dirigida a mayores de 14 años, dado el contenido de la saga. No recopilamos conscientemente datos
+      de menores. En España, el menor de 14 años necesita el consentimiento de sus padres o tutores para el
+      tratamiento de sus datos. Si crees que un menor nos ha facilitado datos, avísanos en
+      {' '}<a href={`mailto:${email}`}>{email}</a> y los eliminaremos.
+    </p>
+
+    <h2>6. Seguridad</h2>
+    <p>
+      Aplicamos las medidas técnicas y organizativas razonables para proteger tus datos frente a accesos no
+      autorizados, pérdida o alteración, como el uso de conexiones seguras y el mantenimiento actualizado del
+      sistema. Ninguna medida es infalible.
+    </p>
+
+    <h2>7. Cambios en esta política</h2>
+    <p>
+      Podemos actualizar esta política para adaptarla a cambios legales o del servicio. Publicaremos la versión
+      vigente con su fecha.
+    </p>
+  </div>
+</PageLayout>

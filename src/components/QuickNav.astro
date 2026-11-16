@@ -1,0 +1,21 @@
+---
+/** Barra de accesos rápidos bajo el banner. Las opciones se configuran en QUICK_NAV (src/config/site.ts). */
+import { QUICK_NAV } from '../config/site';
+import Icono from './Icono.astro';
+import { enlacesGuia, resolverEnlaceGuia } from '../utils/content';
+
+const enlaces = await enlacesGuia();
+---
+
+<nav class="quick-nav" aria-label="Accesos rápidos">
+  <ul class="container">
+    {QUICK_NAV.map((item) => (
+      <li>
+        <a href={resolverEnlaceGuia(item.href, enlaces)}>
+          <Icono nombre={item.icono} />
+          <span>{item.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

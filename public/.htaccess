@@ -1,0 +1,43 @@
+# Configuración de Apache para Hostinger
+
+RewriteEngine On
+
+# Dominio único: www.vilabgaming.es, vilabgaming.com y vilabgaming.online → https://vilabgaming.es
+# (los dominios .com y .online deben apuntar a esta misma web en Hostinger)
+RewriteCond %{HTTP_HOST} ^(www\.)?vilabgaming\.(com|online)$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www\.vilabgaming\.es$ [NC]
+RewriteRule ^(.*)$ https://vilabgaming.es/$1 [L,R=301]
+
+# Forzar HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# Página de error personalizada
+ErrorDocument 404 /404.html
+
+# No listar el contenido de carpetas
+Options -Indexes
+
+# Compresión
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/xml application/rss+xml
+</IfModule>
+
+# Caché del navegador
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/avif "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+
+# Los archivos de /_astro/ llevan hash en el nombre: se pueden cachear para siempre
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

@@ -1,0 +1,36 @@
+---
+/** Visor de imágenes ampliadas. Se activa con cualquier enlace que tenga el atributo data-lightbox. */
+---
+
+<dialog class="lightbox" aria-label="Imagen ampliada">
+  <button class="lightbox-cerrar" type="button" aria-label="Cerrar">✕</button>
+  <figure>
+    <img alt="" />
+    <figcaption><span class="lightbox-titulo"></span> <small class="credito"></small></figcaption>
+  </figure>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.lightbox');
+  if (dialog) {
+    const img = dialog.querySelector('img')!;
+    const titulo = dialog.querySelector('.lightbox-titulo')!;
+    const credito = dialog.querySelector('.credito')!;
+
+    document.addEventListener('click', (e) => {
+      const enlace = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-lightbox]');
+      if (!enlace) return;
+      e.preventDefault();
+      img.src = enlace.href;
+      img.alt = enlace.dataset.titulo ?? '';
+      titulo.textContent = enlace.dataset.titulo ?? '';
+      credito.textContent = enlace.dataset.credito ? `Imagen: ${enlace.dataset.credito}` : '';
+      dialog.showModal();
+    });
+
+    // Cerrar con el botón, pulsando fuera de la imagen o con Escape (nativo de <dialog>)
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog || (e.target as HTMLElement).closest('.lightbox-cerrar')) dialog.close();
+    });
+  }
+</script>

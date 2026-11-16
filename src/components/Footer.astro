@@ -1,0 +1,43 @@
+---
+import Logo from './Logo.astro';
+import { GUIDE_SECTIONS, LEGAL_LINKS, NAV, SITE } from '../config/site';
+import { enlacesGuia } from '../utils/content';
+
+const enlaces = await enlacesGuia();
+const year = new Date().getFullYear();
+const socials = Object.entries(SITE.social).filter(([, url]) => url);
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <Logo />
+      <p class="muted">{SITE.description}</p>
+      {socials.length > 0 && (
+        <ul class="inline-list">
+          {socials.map(([name, url]) => <li><a href={url} rel="noopener" target="_blank">{name}</a></li>)}
+        </ul>
+      )}
+    </div>
+
+    <nav aria-label="Secciones">
+      <h2 class="footer-title">Secciones</h2>
+      <ul>{NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+    </nav>
+
+    <nav aria-label="Guía">
+      <h2 class="footer-title">Guía GTA VI</h2>
+      <ul>{GUIDE_SECTIONS.map((s) => <li><a href={enlaces[s.slug]}>{s.title}</a></li>)}</ul>
+    </nav>
+  </div>
+
+  <div class="container footer-bottom">
+    <p class="muted small">
+      © {year} {SITE.name}. Web de fans no oficial, sin afiliación con Rockstar Games ni Take-Two Interactive.
+      Grand Theft Auto y GTA son marcas registradas de sus respectivos propietarios.
+    </p>
+    <ul class="inline-list small">
+      {LEGAL_LINKS.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </div>
+</footer>

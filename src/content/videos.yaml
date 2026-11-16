@@ -1,0 +1,43 @@
+# Vídeos de la sección Multimedia (solo del canal oficial de Rockstar Games en YouTube).
+# Para añadir uno: copia un bloque, cambia el id (minúsculas y guiones) y rellena los datos.
+#   youtube: el código de 11 caracteres que va tras "watch?v=" en el enlace
+#   destacado: true → aparece en el carrusel de /multimedia/ (se muestran 4, los más recientes)
+# Comprueba que el vídeo es del canal oficial: https://www.youtube.com/@RockstarGames
+
+- id: launch-trailer
+  titulo: Grand Theft Auto VI Launch Trailer
+  youtube: rz1B4B2yBZY
+  fecha: 2026-10-15
+  duracion: "1:30"
+  resumen: >-
+    Tráiler de lanzamiento, el último antes de la salida del juego. Se centra en la historia de Jason y Lucia:
+    el pasado militar de Jason y la vuelta de Lucia tras salir de prisión, con escenas nuevas de Vice City y
+    Leonida y música inédita de Justice.
+  destacado: true
+
+- id: an-extended-look
+  titulo: "Grand Theft Auto VI: An Extended Look"
+  youtube: tJbzMqJGH4k
+  fecha: 2026-08-27
+  resumen: >-
+    Casi media hora de juego real. Se estrenó primero en Netflix y después llegó gratis a YouTube.
+    Es el vídeo que más enseña de cómo se juega: misiones, conducción, mundo abierto y la vida en Leonida.
+  destacado: true
+
+- id: trailer-2
+  titulo: Grand Theft Auto VI Trailer 2
+  youtube: VQRLujxTm3c
+  fecha: 2025-05-06
+  resumen: >-
+    Grabado íntegramente dentro del juego en PS5. Presenta a Jason Duval, que recoge a Lucia a la salida de
+    la cárcel, y muestra mucho más de Vice City, Leonida y los personajes secundarios.
+  destacado: true
+
+- id: trailer-1
+  titulo: Grand Theft Auto VI Trailer 1
+  youtube: QdBZY2fkU-0
+  fecha: 2023-12-04
+  resumen: >-
+    La presentación oficial del juego. Arranca con Lucia en prisión, presenta Vice City y el estado de Leonida
+    con mucha sátira de las redes sociales y termina con un atraco de Jason y Lucia al estilo Bonnie y Clyde.
+  destacado: true

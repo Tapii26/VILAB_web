@@ -1,0 +1,11 @@
+---
+/** Pie de crédito de una imagen («Imagen: Rockstar Games»). No muestra nada si no hay crédito. */
+export interface Props {
+  credito?: string;
+  class?: string;
+}
+
+const { credito, class: className } = Astro.props;
+---
+
+{credito && <small class:list={['credito', className]}>Imagen: {credito}</small>}

@@ -1,0 +1,19 @@
+---
+/** Historial: filtraciones que resultaron falsas (estado: descartado). */
+import PageLayout from '../../layouts/PageLayout.astro';
+import FiltracionesListado from '../../components/FiltracionesListado.astro';
+import { getPublished } from '../../utils/content';
+
+const todas = await getPublished('filtraciones');
+---
+
+<PageLayout
+  title="Filtraciones de GTA 6 descartadas"
+  description="Historial de filtraciones y rumores de GTA 6 que resultaron ser falsos."
+  heading="Descartados"
+  intro="Filtraciones y rumores de GTA VI que resultaron ser falsos."
+  breadcrumbs={[{ label: 'Filtraciones', href: '/filtraciones/' }]}
+  volver={{ href: '/filtraciones/', label: 'Filtraciones' }}
+>
+  <FiltracionesListado estado="descartado" todas={todas} vacio="Todavía no se ha descartado ninguna de las filtraciones publicadas." />
+</PageLayout>

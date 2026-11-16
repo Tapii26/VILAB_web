@@ -1,0 +1,41 @@
+---
+import { render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import Probabilidad from '../../components/Probabilidad.astro';
+import EstadoFiltracion from '../../components/EstadoFiltracion.astro';
+import { formatDate, getPublished } from '../../utils/content';
+
+export async function getStaticPaths() {
+  const posts = await getPublished('filtraciones');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { probabilidad, fuente, estado, fechaResolucion, resolucion } = post.data;
+
+const SECCION = {
+  pendiente: { label: 'Filtraciones', href: '/filtraciones/' },
+  confirmado: { label: 'Confirmados', href: '/filtraciones/confirmados/' },
+  descartado: { label: 'Descartados', href: '/filtraciones/descartados/' },
+};
+const breadcrumbs = [{ label: 'Filtraciones', href: '/filtraciones/' }];
+if (estado !== 'pendiente') breadcrumbs.push(SECCION[estado]);
+---
+
+<ArticleLayout data={post.data} breadcrumbs={breadcrumbs}>
+  <div slot="aviso" class="notice">
+    {estado === 'pendiente' ? (
+      <><strong>Información no oficial.</strong> <Probabilidad nivel={probabilidad} /></>
+    ) : (
+      <>
+        <strong>{estado === 'confirmado' ? 'Esta filtración se confirmó' : 'Esta filtración resultó ser falsa'}{fechaResolucion && ` el ${formatDate(fechaResolucion)}`}.</strong>
+        <EstadoFiltracion estado={estado} />
+        {resolucion && <p class="aviso-fuente">{resolucion}</p>}
+        <p class="small muted aviso-fuente">Antes de resolverse la valoramos como: <Probabilidad nivel={probabilidad} /></p>
+      </>
+    )}
+    {fuente && <p class="small muted aviso-fuente">Fuente: {fuente}</p>}
+  </div>
+  <Content />
+</ArticleLayout>

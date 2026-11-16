@@ -1,0 +1,46 @@
+---
+/** Cuenta atrás hasta el lanzamiento. La fecha se toma de SITE.launchDate */
+import { SITE } from '../config/site';
+
+const launch = new Date(SITE.launchDate);
+const fecha = launch.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<div class="countdown" data-target={SITE.launchDate}>
+  <p class="countdown-label">GTA VI sale el <time datetime={SITE.launchDate}>{fecha}</time></p>
+  <div class="countdown-grid" aria-live="polite">
+    <div><span data-unit="days">--</span><small>días</small></div>
+    <div><span data-unit="hours">--</span><small>horas</small></div>
+    <div><span data-unit="minutes">--</span><small>min</small></div>
+    <div><span data-unit="seconds">--</span><small>seg</small></div>
+  </div>
+  <p class="countdown-done" hidden>¡GTA VI ya está disponible!</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.countdown').forEach((el) => {
+    const target = new Date(el.dataset.target!).getTime();
+    const grid = el.querySelector<HTMLElement>('.countdown-grid')!;
+    const done = el.querySelector<HTMLElement>('.countdown-done')!;
+    const set = (unit: string, value: number) => {
+      el.querySelector(`[data-unit="${unit}"]`)!.textContent = String(value).padStart(2, '0');
+    };
+
+    const tick = () => {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        grid.hidden = true;
+        done.hidden = false;
+        clearInterval(timer);
+        return;
+      }
+      set('days', Math.floor(diff / 86_400_000));
+      set('hours', Math.floor(diff / 3_600_000) % 24);
+      set('minutes', Math.floor(diff / 60_000) % 60);
+      set('seconds', Math.floor(diff / 1000) % 60);
+    };
+
+    const timer = setInterval(tick, 1000);
+    tick();
+  });
+</script>

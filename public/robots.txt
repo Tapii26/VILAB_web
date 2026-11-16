@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /contacto.php
+
+Sitemap: https://vilabgaming.es/sitemap-index.xml

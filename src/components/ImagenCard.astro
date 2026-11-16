@@ -1,0 +1,22 @@
+---
+/** Imagen de la galería. Al pulsar se abre ampliada (Lightbox.astro). */
+import type { CollectionEntry } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+
+export interface Props {
+  imagen: CollectionEntry<'galeria'>;
+}
+
+const { archivo, titulo, credito } = Astro.props.imagen.data;
+const grande = await getImage({ src: archivo, width: Math.min(archivo.width, 2400), format: 'webp' });
+---
+
+<figure class="media-card">
+  <a class="media-thumb" href={grande.src} data-lightbox data-titulo={titulo} data-credito={credito}>
+    <Image src={archivo} alt={titulo} widths={[400, 640, 960]} sizes="(max-width: 700px) 85vw, 360px" format="webp" loading="lazy" />
+  </a>
+  <figcaption class="media-card-body">
+    <h3>{titulo}</h3>
+    <small class="credito">Imagen: {credito}</small>
+  </figcaption>
+</figure>

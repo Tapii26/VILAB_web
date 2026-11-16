@@ -1,0 +1,48 @@
+---
+/** Tarjeta de artículo para listados (portada, noticias, filtraciones, guía) */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Probabilidad from './Probabilidad.astro';
+import EstadoFiltracion from './EstadoFiltracion.astro';
+import { formatDate } from '../utils/content';
+
+export interface Props {
+  href: string;
+  titulo: string;
+  descripcion: string;
+  fecha?: Date;
+  imagen?: ImageMetadata;
+  imagenAlt?: string;
+  // Solo filtraciones: nivel interno 1-5 (etiqueta de semáforo) y estado del historial
+  probabilidad?: number;
+  estado?: 'pendiente' | 'confirmado' | 'descartado';
+}
+
+const { href, titulo, descripcion, fecha, imagen, imagenAlt, probabilidad, estado } = Astro.props;
+---
+
+<article class="card">
+  {imagen && (
+    <Image
+      class="card-img"
+      src={imagen}
+      alt={imagenAlt ?? ''}
+      widths={[400, 640, 960]}
+      sizes="(max-width: 700px) 100vw, 400px"
+      format="webp"
+      loading="lazy"
+    />
+  )}
+  <div class="card-body">
+    <h3><a href={href}>{titulo}</a></h3>
+    <p class="muted">{descripcion}</p>
+    {(fecha || probabilidad) && (
+      <div class="card-pie">
+        {fecha && <time class="small muted" datetime={fecha.toISOString()}>{formatDate(fecha)}</time>}
+        {estado === 'confirmado' || estado === 'descartado'
+          ? <EstadoFiltracion estado={estado} />
+          : probabilidad && <Probabilidad nivel={probabilidad} />}
+      </div>
+    )}
+  </div>
+</article>

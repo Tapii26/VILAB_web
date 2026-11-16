@@ -1,0 +1,55 @@
+---
+/** El formulario envía los datos a /contacto.php (public/contacto.php), que Hostinger ejecuta. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Fondo from '../components/Fondo.astro';
+import fondo from '../assets/fondos/real-dimez.jpg';
+import { LEGAL } from '../config/site';
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Contacta con el equipo de VI LAB GAMING para sugerencias, correcciones o colaboraciones."
+>
+  <Fondo imagen={fondo} credito="Rockstar Games">
+    <div class="panel">
+      <Breadcrumbs items={[{ label: 'Contacto' }]} />
+      <h1>Contacto</h1>
+      <p class="lead">¿Tienes una sugerencia, una corrección o quieres colaborar? Escríbenos.</p>
+
+      <p class="notice" data-estado="ok" hidden>¡Gracias! Hemos recibido tu mensaje.</p>
+      <p class="notice notice-error" data-estado="error" hidden>No se pudo enviar el mensaje. Revisa los campos e inténtalo de nuevo.</p>
+
+      <form class="form" action="/contacto.php" method="post">
+        <label>Nombre <input type="text" name="nombre" required maxlength="100" autocomplete="name" /></label>
+        <label>Email <input type="email" name="email" required maxlength="150" autocomplete="email" /></label>
+        <label>Asunto <input type="text" name="asunto" maxlength="150" /></label>
+        <label>Mensaje <textarea name="mensaje" rows="6" required maxlength="5000"></textarea></label>
+
+        <!-- Campo trampa anti-spam: los humanos no lo ven -->
+        <label class="hp" aria-hidden="true">Web <input type="text" name="web" tabindex="-1" autocomplete="off" /></label>
+
+        <label class="checkbox">
+          <input type="checkbox" name="privacidad" value="1" required />
+          <span>He leído y acepto la <a href="/legal/privacidad/">política de privacidad</a>.</span>
+        </label>
+
+        <!-- Información básica de protección de datos (primera capa, RGPD art. 13) -->
+        <p class="form-rgpd">
+          <strong>Responsable:</strong> {LEGAL.responsable.nombre}. <strong>Finalidad:</strong> responder a tu mensaje.
+          {' '}<strong>Legitimación:</strong> tu consentimiento. <strong>Destinatarios:</strong> no se ceden datos a terceros,
+          salvo obligación legal; el correo se aloja en Hostinger. <strong>Derechos:</strong> acceso, rectificación,
+          supresión y otros, escribiendo a {LEGAL.email}. Más información en la
+          {' '}<a href="/legal/privacidad/">política de privacidad</a>.
+        </p>
+
+        <button type="submit" class="button">Enviar mensaje</button>
+      </form>
+    </div>
+  </Fondo>
+</BaseLayout>
+
+<script>
+  const estado = new URLSearchParams(location.search).get('estado');
+  if (estado) document.querySelector<HTMLElement>(`[data-estado="${estado}"]`)?.removeAttribute('hidden');
+</script>

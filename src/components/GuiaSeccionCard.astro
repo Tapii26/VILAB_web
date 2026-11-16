@@ -1,0 +1,42 @@
+---
+/**
+ * Tarjeta visual de una sección de la guía (portada /guia/): imagen de fondo, icono de color,
+ * y título. Sin artículos se muestra apagada con «Próximamente» (`articulos` solo se usa para eso).
+ * La imagen sale de src/assets/guia/<slug>.jpg (crédito común al pie de /guia/).
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Icono from './Icono.astro';
+
+export interface Props {
+  slug: string;
+  // Destino del enlace (ver enlacesGuia en utils/content.ts)
+  href: string;
+  title: string;
+  description: string;
+  icono: string;
+  color: string;
+  articulos: number;
+  tamano?: 'grande' | 'normal';
+}
+
+const { slug, href, title, description, icono, color, articulos, tamano = 'normal' } = Astro.props;
+
+const imagenes = import.meta.glob<{ default: ImageMetadata }>('../assets/guia/*.jpg', { eager: true });
+const imagen = imagenes[`../assets/guia/${slug}.jpg`]?.default;
+const vacia = articulos === 0;
+---
+
+<a class:list={['guia-card', `guia-card-${tamano}`, { 'guia-card-vacia': vacia }]} href={href} style={`--c: ${color}`}>
+  {imagen && (
+    <Image class="guia-card-img" src={imagen} alt="" widths={[400, 640, 960]}
+      sizes={tamano === 'grande' ? '(max-width: 700px) 100vw, 400px' : '(max-width: 700px) 50vw, 300px'}
+      format="webp" loading="lazy" />
+  )}
+  <span class="guia-card-icono"><Icono nombre={icono} size={tamano === 'grande' ? 26 : 22} /></span>
+  {vacia && <span class="guia-card-chip"><Icono nombre="candado" size={13} /> Próximamente</span>}
+  <span class="guia-card-texto">
+    <strong>{title}</strong>
+    <span>{description}</span>
+  </span>
+</a>

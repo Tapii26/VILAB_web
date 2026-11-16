@@ -1,0 +1,19 @@
+---
+/** Historial: filtraciones que se han confirmado (estado: confirmado). */
+import PageLayout from '../../layouts/PageLayout.astro';
+import FiltracionesListado from '../../components/FiltracionesListado.astro';
+import { getPublished } from '../../utils/content';
+
+const todas = await getPublished('filtraciones');
+---
+
+<PageLayout
+  title="Filtraciones de GTA 6 confirmadas"
+  description="Historial de filtraciones y rumores de GTA 6 que acabaron confirmándose."
+  heading="Confirmados"
+  intro="Filtraciones y rumores de GTA VI que acabaron siendo ciertos."
+  breadcrumbs={[{ label: 'Filtraciones', href: '/filtraciones/' }]}
+  volver={{ href: '/filtraciones/', label: 'Filtraciones' }}
+>
+  <FiltracionesListado estado="confirmado" todas={todas} vacio="Todavía no se ha confirmado ninguna de las filtraciones publicadas." />
+</PageLayout>

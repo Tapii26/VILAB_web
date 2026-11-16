@@ -1,0 +1,34 @@
+---
+/** Artículo de la guía: /guia/vehiculos/infernus/ (archivo src/content/guia/vehiculos/infernus.md) */
+import { render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import { GUIDE_SECTIONS } from '../../../config/site';
+import { enlacesGuia, getPublished, splitGuideId } from '../../../utils/content';
+
+export async function getStaticPaths() {
+  const entradas = await getPublished('guia');
+  return entradas.flatMap((entry) => {
+    const { seccion, slug } = splitGuideId(entry.id);
+    const section = GUIDE_SECTIONS.find((s) => s.slug === seccion);
+    // Ignora archivos fuera de una carpeta de sección válida
+    if (!section || !slug) return [];
+    return [{ params: { seccion, slug }, props: { entry, section } }];
+  });
+}
+
+const { entry, section } = Astro.props;
+const { Content } = await render(entry);
+// Si la sección solo tiene este artículo, su página intermedia no aporta nada: la miga va sin enlace
+const enlaces = await enlacesGuia();
+const seccionConListado = enlaces[section.slug] === `/guia/${section.slug}/`;
+---
+
+<ArticleLayout
+  data={entry.data}
+  breadcrumbs={[
+    { label: 'Guía', href: '/guia/' },
+    seccionConListado ? { label: section.title, href: `/guia/${section.slug}/` } : { label: section.title },
+  ]}
+>
+  <Content />
+</ArticleLayout>

@@ -1,0 +1,122 @@
+---
+/**
+ * Dónde comprar GTA VI: escaparate que redirige a tiendas externas (no vendemos nada ni cobramos comisión).
+ * Tiendas y enlaces: src/content/tiendas.yaml · Precios y ediciones: EDICIONES (abajo).
+ * Notas legales internas: docs/tienda.md
+ */
+import { getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Credito from '../components/Credito.astro';
+import Icono from '../components/Icono.astro';
+import TiendaCard from '../components/TiendaCard.astro';
+import { SITE } from '../config/site';
+import { formatDate } from '../utils/content';
+import fondo from '../assets/banners/jason-lucia-coche.jpg';
+
+// Precios oficiales en España (revisados el 12/11/2026). Si cambian, solo se tocan aquí.
+const EDICIONES = [
+  { nombre: 'Edición Estándar', precio: '79,99 €', detalle: 'El juego completo.' },
+  {
+    nombre: 'Ultimate Edition',
+    precio: '99,99 €',
+    detalle: 'El juego y contenido extra para la historia, como vehículos y un garaje propio.',
+    destacada: true,
+  },
+];
+const REVISADO = new Date('2026-11-12');
+
+const tiendas = (await getCollection('tiendas')).sort((a, b) => a.data.orden - b.data.orden);
+const digitales = tiendas.filter((t) => t.data.tipo === 'digital');
+const fisicas = tiendas.filter((t) => t.data.tipo === 'fisica');
+const lanzamiento = formatDate(new Date(SITE.launchDate));
+
+const img = await getImage({ src: fondo, widths: [828, 1280, 1920, 2560], format: 'webp' });
+---
+
+<BaseLayout
+  title="Dónde comprar o reservar GTA 6"
+  description="Todas las tiendas donde comprar o reservar GTA 6 en España para PS5 y Xbox Series: PlayStation Store, Xbox Store, Amazon, GAME, MediaMarkt y más."
+>
+  <!-- CABECERA CON IMAGEN -->
+  <section class="comprar-hero">
+    <img class="comprar-hero-img" src={img.src} srcset={img.srcSet.attribute} sizes="100vw" alt="" decoding="async" />
+    <div class="container comprar-hero-content">
+      <Breadcrumbs items={[{ label: 'Dónde comprar' }]} />
+      <h1>Dónde comprar <span class="accent">GTA VI</span></h1>
+      <p class="lead">Reserva o compra el juego en tu tienda favorita. Elige tienda y consola: te llevamos directo a su página.</p>
+      <ul class="comprar-datos">
+        <li><Icono nombre="mando" size={18} /> PS5 y Xbox Series X|S</li>
+        <li><Icono nombre="dinero" size={18} /> Desde 79,99 €</li>
+        <li><Icono nombre="rayo" size={18} /> Sale el {lanzamiento}</li>
+      </ul>
+      <div class="comprar-saltos">
+        <a class="button" href="#digital">Tiendas digitales</a>
+        <a class="button button-secundario" href="#fisica">Edición física</a>
+      </div>
+    </div>
+    <Credito credito="Rockstar Games" class="fondo-credito" />
+  </section>
+
+  <div class="container comprar">
+    <!-- ANTES DE COMPRAR -->
+    <section class="comprar-bloque" aria-labelledby="antes">
+      <h2 id="antes">Antes de comprar</h2>
+      <div class="comprar-info">
+        <div class="comprar-ediciones">
+          {EDICIONES.map((e) => (
+            <div class:list={['edicion', { 'edicion-destacada': e.destacada }]}>
+              <span class="edicion-nombre">{e.nombre}</span>
+              <strong class="edicion-precio">{e.precio}</strong>
+              <span class="small muted">{e.detalle}</span>
+            </div>
+          ))}
+        </div>
+        <ul class="comprar-avisos">
+          <li>
+            <span class="aviso-icono"><Icono nombre="regalo" /></span>
+            <span><strong>Reserva antes del 20 de noviembre</strong> y recibirás el
+              {' '}<a href="/guia/armas/acabado-tropical-vintage-vice-city/">Pack Vintage Vice City</a>, compres donde compres.</span>
+          </li>
+          <li>
+            <span class="aviso-icono"><Icono nombre="disco" /></span>
+            <span><strong>La edición física no trae disco:</strong> la caja incluye un código para descargar el juego.</span>
+          </li>
+          <li>
+            <span class="aviso-icono"><Icono nombre="descarga" /></span>
+            <span><strong>Necesitarás hasta 212 GB libres.</strong> Si lo reservas en digital, ya puedes
+              {' '}<a href="/noticias/precarga-10-de-noviembre/">precargarlo</a>.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TIENDAS DIGITALES -->
+    <section class="comprar-bloque" id="digital" aria-labelledby="titulo-digital">
+      <h2 id="titulo-digital">Tiendas digitales</h2>
+      <p class="muted">Compra en la tienda oficial de tu consola y descárgalo sin esperar envíos.</p>
+      <div class="tiendas tiendas-digitales">
+        {digitales.map((t) => <TiendaCard tienda={t} />)}
+      </div>
+    </section>
+
+    <!-- TIENDAS FÍSICAS -->
+    <section class="comprar-bloque" id="fisica" aria-labelledby="titulo-fisica">
+      <h2 id="titulo-fisica">Edición física</h2>
+      <p class="muted">Caja con código de descarga, a domicilio o para recoger en tienda según cada cadena.</p>
+      <div class="tiendas">
+        {fisicas.map((t) => <TiendaCard tienda={t} />)}
+      </div>
+    </section>
+
+    <!-- TRANSPARENCIA -->
+    <aside class="notice comprar-nota">
+      <p><strong>VI LAB no vende el juego ni cobra comisión por estos enlaces.</strong> Solo te llevamos a la
+        tienda: el precio, el stock, el envío y la compra dependen de cada una. Comprueba siempre el precio final
+        en su web. Enlaces revisados el {formatDate(REVISADO)}.</p>
+      <p class="small muted">Consejo: evita las webs de reventa de claves; pueden ser de otra región y no
+        funcionar en tu consola. Los nombres de las tiendas son marcas de sus propietarios, sin relación con VI LAB.</p>
+    </aside>
+  </div>
+</BaseLayout>

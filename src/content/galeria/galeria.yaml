@@ -1,0 +1,179 @@
+# Galería de imágenes de la sección Multimedia.
+# Para añadir una: copia la imagen a esta carpeta y añade una entrada aquí.
+# categoria: Arte oficial | Personajes | Lugares | Acción
+# destacada: true → aparece en el carrusel de /multimedia/ (se muestran 4)
+
+- id: jason-and-lucia-01-ultrawide
+  archivo: ./jason-and-lucia-01-ultrawide.jpg
+  titulo: "Jason y Lucia sobre un coche al atardecer"
+  categoria: Arte oficial
+  credito: Rockstar Games
+- id: jason-and-lucia-beach-ultrawide
+  archivo: ./jason-and-lucia-beach-ultrawide.jpg
+  titulo: "Jason y Lucia en la playa"
+  categoria: Arte oficial
+  credito: Rockstar Games
+- id: vice-city-10
+  archivo: ./vice-city-10.jpg
+  titulo: "Vice City: torres junto al agua de día"
+  categoria: Lugares
+  credito: Rockstar Games
+  destacada: true
+- id: vice-city-08
+  archivo: ./vice-city-08.jpg
+  titulo: "Vice City de noche desde lo alto"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: leonida-keys-01
+  archivo: ./leonida-keys-01.jpg
+  titulo: "Leonida Keys: vista aérea con hidroavión"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: grassrivers-05
+  archivo: ./grassrivers-05.jpg
+  titulo: "Grassrivers: pantano con el skyline al fondo"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: port-gellhorn-06
+  archivo: ./port-gellhorn-06.jpg
+  titulo: "Port Gellhorn al atardecer"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: mount-kalaga-national-park-04
+  archivo: ./mount-kalaga-national-park-04.jpg
+  titulo: "Mount Kalaga: carretera entre cañones"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: ambrosia-04
+  archivo: ./ambrosia-04.jpg
+  titulo: "Ambrosia: atardecer industrial"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: official-cover-art
+  archivo: ./official-cover-art.jpg
+  titulo: "Portada oficial de GTA VI"
+  categoria: Arte oficial
+  credito: Rockstar Games
+  destacada: true
+- id: jason-and-lucia-01-with-logos
+  archivo: ./jason-and-lucia-01-with-logos.jpg
+  titulo: "Jason y Lucia con el logo de GTA VI"
+  categoria: Arte oficial
+  credito: Rockstar Games
+- id: jason-and-lucia-02
+  archivo: ./jason-and-lucia-02.jpg
+  titulo: "Jason y Lucia armados en un muelle"
+  categoria: Arte oficial
+  credito: Rockstar Games
+- id: jason-lucia-lock-and-load
+  archivo: ./jason-lucia-lock-and-load.jpg
+  titulo: "Jason y Lucia cargando armas junto a un coche rojo"
+  categoria: Arte oficial
+  credito: Rockstar Games
+- id: jason-and-lucia-robbery
+  archivo: ./jason-and-lucia-robbery.jpg
+  titulo: "Jason y Lucia tras un atraco en una gasolinera"
+  categoria: Arte oficial
+  credito: Rockstar Games
+- id: jason-and-lucia-motel
+  archivo: ./jason-and-lucia-motel.jpg
+  titulo: "Jason y Lucia en un motel"
+  categoria: Arte oficial
+  credito: Rockstar Games
+- id: the-album-cover-art
+  archivo: ./the-album-cover-art.jpg
+  titulo: "Portada del álbum de la banda sonora"
+  categoria: Arte oficial
+  credito: Rockstar Games
+- id: boobie-ike
+  archivo: ./boobie-ike.jpg
+  titulo: "Boobie Ike"
+  categoria: Personajes
+  credito: Rockstar Games
+- id: brian-heder
+  archivo: ./brian-heder.jpg
+  titulo: "Brian Heder"
+  categoria: Personajes
+  credito: Rockstar Games
+- id: cal-hampton
+  archivo: ./cal-hampton.jpg
+  titulo: "Cal Hampton"
+  categoria: Personajes
+  credito: Rockstar Games
+- id: drequan-priest
+  archivo: ./drequan-priest.jpg
+  titulo: "DreQuan Priest"
+  categoria: Personajes
+  credito: Rockstar Games
+- id: raul-bautista
+  archivo: ./raul-bautista.jpg
+  titulo: "Raul Bautista"
+  categoria: Personajes
+  credito: Rockstar Games
+- id: real-dimez
+  archivo: ./real-dimez.jpg
+  titulo: "Real Dimez"
+  categoria: Personajes
+  credito: Rockstar Games
+- id: jason-duval-04
+  archivo: ./jason-duval-04.jpg
+  titulo: "Jason Duval"
+  categoria: Personajes
+  credito: Rockstar Games
+- id: lucia-caminos-03
+  archivo: ./lucia-caminos-03.jpg
+  titulo: "Lucia Caminos"
+  categoria: Personajes
+  credito: Rockstar Games
+- id: vice-city-postcard
+  archivo: ./vice-city-postcard.jpg
+  titulo: "Postal de Vice City"
+  categoria: Lugares
+  credito: Rockstar Games
+  destacada: true
+- id: leonida-keys-postcard
+  archivo: ./leonida-keys-postcard.jpg
+  titulo: "Postal de Leonida Keys"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: grassrivers-postcard
+  archivo: ./grassrivers-postcard.jpg
+  titulo: "Postal de Grassrivers"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: port-gellhorn-postcard
+  archivo: ./port-gellhorn-postcard.jpg
+  titulo: "Postal de Port Gellhorn"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: mount-kalaga-national-park-postcard
+  archivo: ./mount-kalaga-national-park-postcard.jpg
+  titulo: "Postal de Mount Kalaga National Park"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: ambrosia-postcard
+  archivo: ./ambrosia-postcard.jpg
+  titulo: "Postal de Ambrosia"
+  categoria: Lugares
+  credito: Rockstar Games
+- id: jason-and-lucia-09
+  archivo: ./jason-and-lucia-09.jpg
+  titulo: "Persecución en moto con la policía"
+  categoria: Acción
+  credito: Rockstar Games
+  destacada: true
+- id: vice-city-09
+  archivo: ./vice-city-09.jpg
+  titulo: "Calle de Vice City con coches y motos"
+  categoria: Acción
+  credito: Rockstar Games
+- id: mount-kalaga-national-park-02
+  archivo: ./mount-kalaga-national-park-02.jpg
+  titulo: "Helicóptero sobre Mount Kalaga"
+  categoria: Acción
+  credito: Rockstar Games
+- id: jason-duval-01
+  archivo: ./jason-duval-01.jpg
+  titulo: "Jason Duval con una moto deportiva"
+  categoria: Acción
+  credito: Rockstar Games

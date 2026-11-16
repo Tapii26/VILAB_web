@@ -1,0 +1,26 @@
+---
+/** Todos los vídeos. La lista está en src/content/videos.yaml */
+import PageLayout from '../../layouts/PageLayout.astro';
+import VideoCard from '../../components/VideoCard.astro';
+import { getVideos } from '../../utils/content';
+
+const videos = await getVideos();
+---
+
+<PageLayout
+  title="Tráilers y vídeos oficiales de GTA 6"
+  description="Todos los tráilers y vídeos oficiales de GTA 6 publicados por Rockstar Games, con un resumen de cada uno."
+  heading="Tráilers y vídeos"
+  intro="Todos los vídeos oficiales de GTA VI, del más reciente al más antiguo."
+  breadcrumbs={[{ label: 'Multimedia', href: '/multimedia/' }]}
+  volver={{ href: '/multimedia/', label: 'Multimedia' }}
+>
+  <div class="grid media-grid">
+    {videos.map((video) => <VideoCard video={video} completo />)}
+  </div>
+
+  <p class="credito fuente-nota">
+    Todos los vídeos pertenecen a Rockstar Games y están alojados en su <a href="https://www.youtube.com/@RockstarGames" target="_blank" rel="noopener">canal oficial de YouTube</a>.
+    Se reproducen en esta web mediante el reproductor de YouTube.
+  </p>
+</PageLayout>

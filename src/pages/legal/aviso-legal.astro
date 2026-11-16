@@ -1,0 +1,112 @@
+---
+/** Aviso legal (LSSI-CE art. 10). Texto base: Textos_legales_blog_GTA_VI.docx. Datos en LEGAL (site.ts). */
+import PageLayout from '../../layouts/PageLayout.astro';
+import { LEGAL, SITE } from '../../config/site';
+import { formatDate } from '../../utils/content';
+
+const titulares = LEGAL.titulares.join(' y ');
+---
+
+<PageLayout title="Aviso legal" description={`Aviso legal de ${SITE.name}.`} heading="Aviso legal" noindex>
+  <div class="prose">
+    <p class="small muted">Última actualización: {formatDate(new Date(LEGAL.actualizado))}</p>
+
+    <h2>1. Datos identificativos del titular</h2>
+    <p>
+      En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y de
+      Comercio Electrónico (LSSI-CE), se informa de que los titulares de los sitios web {LEGAL.dominios.join(', ')}
+      {' '}(en adelante, la «Web») son:
+    </p>
+    <ul>
+      <li><strong>Titulares:</strong> {titulares}</li>
+      <li><strong>NIF:</strong> {LEGAL.nif.join(' / ')}</li>
+      <li><strong>Domicilio:</strong> {LEGAL.domicilio}</li>
+      <li><strong>Email de contacto:</strong> <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a></li>
+    </ul>
+
+    <h2>2. Objeto</h2>
+    <p>
+      La Web es un blog dedicado a Grand Theft Auto VI y a la saga Grand Theft Auto, donde se publican noticias,
+      análisis, guías y contenidos de interés para los aficionados. El acceso es gratuito, sin perjuicio del coste
+      de la conexión a internet que cada usuario tenga contratada.
+    </p>
+
+    <h2>3. Condiciones de acceso y uso</h2>
+    <p>
+      El acceso y uso de la Web atribuye la condición de usuario e implica la aceptación de este Aviso Legal, de la
+      {' '}<a href="/legal/privacidad/">Política de Privacidad</a> y de la <a href="/legal/cookies/">Política de Cookies</a>.
+      El usuario se compromete a hacer un uso lícito, adecuado y respetuoso de la Web, y a no utilizarla para
+      actividades ilegales o que perjudiquen a terceros o a su funcionamiento.
+    </p>
+
+    <h2>4. Independencia respecto a Rockstar Games y Take-Two</h2>
+    <p>
+      La Web es un proyecto independiente de aficionados. No está afiliada, patrocinada, respaldada ni autorizada
+      por Rockstar Games, Take-Two Interactive Software, Inc., ni por ninguna de sus empresas matrices, filiales o
+      asociadas. «Grand Theft Auto», «GTA», «GTA VI», «Rockstar Games» y los nombres, logotipos, personajes e
+      imágenes relacionados son marcas o propiedad intelectual de sus respectivos titulares y se mencionan
+      únicamente con fines informativos y de identificación.
+    </p>
+
+    <h2>5. Propiedad intelectual e industrial</h2>
+    <p>
+      Los textos, diseños, logotipos y demás elementos propios de la Web son titularidad de {titulares} o se
+      utilizan con la debida autorización, y están protegidos por la normativa de propiedad intelectual e
+      industrial. Queda prohibida su reproducción, distribución o transformación sin autorización expresa, salvo en
+      los casos permitidos por la ley.
+    </p>
+    <p>
+      Las imágenes, vídeos y materiales de terceros que aparecen en la Web son material promocional publicado por
+      sus titulares para su difusión, material con licencias que permiten su uso o contenido incrustado desde sus
+      canales oficiales. Se utilizan con fines informativos y se indica siempre su fuente. Si eres titular de
+      derechos y consideras que algún contenido vulnera tus derechos, consulta nuestra
+      {' '}<a href="/legal/derechos-de-autor/">Política de derechos de autor y retirada de contenidos</a>.
+    </p>
+
+    <h2>6. Veracidad de la información, rumores y correcciones</h2>
+    <p>
+      La Web publica noticias oficiales y también información no confirmada, como rumores o filtraciones
+      atribuidas a terceros. Estos contenidos se identifican claramente como tales, indican su fuente siempre que
+      es posible y pueden resultar inexactos o cambiar. Si detectamos un error, lo corregiremos y lo indicaremos en
+      el propio artículo. Si encuentras algún error, puedes avisarnos en <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>.
+    </p>
+
+    <h2>7. Enlaces a terceros</h2>
+    <p>
+      La Web incluye enlaces a sitios de terceros (medios, tiendas, plataformas, redes sociales). El titular no
+      controla ni se responsabiliza de sus contenidos, políticas o prácticas, y la inclusión de un enlace no implica
+      recomendación ni vinculación con su titular. Los enlaces de la sección <a href="/donde-comprar/">Dónde
+      comprar</a> son enlaces normales: la Web no vende productos ni recibe comisión por ellos.
+    </p>
+
+    <h2>8. Exclusión de responsabilidad</h2>
+    <ul>
+      <li>
+        La información tiene carácter informativo y de entretenimiento. Precios, fechas y características de
+        productos de terceros pueden variar, por lo que se recomienda contrastarlos en fuentes oficiales.
+      </li>
+      <li>
+        Los trucos, guías, mods u otras herramientas mencionadas se ofrecen solo con fines informativos. El titular
+        no se responsabiliza de sanciones, bloqueos de cuenta o daños derivados de su uso, ni fomenta su uso en modos
+        online o en contra de las condiciones de los desarrolladores.
+      </li>
+      <li>
+        El titular no garantiza la disponibilidad continua de la Web y podrá suspenderla por mantenimiento o causas
+        técnicas, ni responde de fallos o virus ajenos a su control.
+      </li>
+    </ul>
+
+    <h2>9. Protección de datos</h2>
+    <p>
+      El tratamiento de datos personales se rige por la <a href="/legal/privacidad/">Política de Privacidad</a> y la
+      {' '}<a href="/legal/cookies/">Política de Cookies</a> de la Web.
+    </p>
+
+    <h2>10. Legislación aplicable y jurisdicción</h2>
+    <p>
+      Este Aviso Legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los
+      juzgados y tribunales que resulten competentes conforme a la normativa vigente; si el usuario tiene la
+      condición de consumidor, serán los de su domicilio.
+    </p>
+  </div>
+</PageLayout>

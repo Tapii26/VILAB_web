@@ -1,0 +1,37 @@
+---
+/**
+ * Tarjeta de una tienda externa (/donde-comprar/). Datos en src/content/tiendas.yaml.
+ * Los botones abren la tienda en otra pestaña: no hay enlaces de afiliado ni comisiones.
+ */
+import type { CollectionEntry } from 'astro:content';
+import Icono from './Icono.astro';
+
+export interface Props {
+  tienda: CollectionEntry<'tiendas'>;
+}
+
+const { nombre, dominio, sigla, ps5, xbox, nota, tipo } = Astro.props.tienda.data;
+const botones = [
+  ps5 && { label: 'PS5', href: ps5 },
+  xbox && { label: 'Xbox Series', href: xbox },
+].filter(Boolean) as { label: string; href: string }[];
+---
+
+<article class:list={['tienda', `tienda-${tipo}`]}>
+  <header class="tienda-head">
+    <span class="tienda-sigla" aria-hidden="true">{sigla}</span>
+    <div>
+      <h3>{nombre}</h3>
+      <p class="tienda-destino"><Icono nombre="externo" size={13} /> Te lleva a <strong>{dominio}</strong></p>
+    </div>
+  </header>
+  {nota && <p class="tienda-nota">{nota}</p>}
+  <div class="tienda-botones">
+    {botones.map((b) => (
+      <a class="tienda-boton" href={b.href} target="_blank" rel="noopener noreferrer"
+        aria-label={`Ver GTA VI para ${b.label} en ${nombre} (se abre ${dominio} en una pestaña nueva)`}>
+        {b.label} <Icono nombre="externo" size={14} />
+      </a>
+    ))}
+  </div>
+</article>

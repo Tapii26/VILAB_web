@@ -1,0 +1,18 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPublished } from '../../utils/content';
+
+const posts = await getPublished('noticias');
+---
+
+<PageLayout
+  title="Noticias de GTA 6"
+  description="Últimas noticias oficiales de GTA 6: tráilers, fecha de lanzamiento, anuncios de Rockstar y todas las novedades del juego."
+  heading="Noticias de GTA 6"
+  intro="Todas las novedades oficiales sobre Grand Theft Auto VI."
+>
+  {posts.length ? (
+    <div class="grid">{posts.map((p) => <PostCard href={`/noticias/${p.id}/`} {...p.data} />)}</div>
+  ) : <p class="muted">Aún no hay noticias publicadas.</p>}
+</PageLayout>

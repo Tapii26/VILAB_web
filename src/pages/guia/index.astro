@@ -1,0 +1,80 @@
+---
+/**
+ * Portada de la guía: secciones agrupadas en bloques (GUIDE_GROUPS) con tarjetas
+ * visuales y los últimos artículos publicados. Todo sale de src/config/site.ts y de la colección `guia`.
+ */
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import GuiaSeccionCard from '../../components/GuiaSeccionCard.astro';
+import Icono from '../../components/Icono.astro';
+import { GUIDE_GROUPS, GUIDE_SECTIONS } from '../../config/site';
+import { enlacesGuia, getPublished, splitGuideId } from '../../utils/content';
+
+const entradas = await getPublished('guia');
+const enlaces = await enlacesGuia();
+const contar = (slug: string) => entradas.filter((e) => splitGuideId(e.id).seccion === slug).length;
+
+const grupoDe = (slug: string) => GUIDE_GROUPS.find((g) => g.id === GUIDE_SECTIONS.find((s) => s.slug === slug)?.grupo);
+const ultimos = entradas.slice(0, 4).map((e) => {
+  const { seccion } = splitGuideId(e.id);
+  return { e, seccion: GUIDE_SECTIONS.find((s) => s.slug === seccion)!, color: grupoDe(seccion)?.color };
+});
+---
+
+<PageLayout
+  title="Guía completa de GTA 6"
+  description="Guía de GTA 6 en español: modo historia, personajes, mapa, vehículos, armas, propiedades, trucos, dinero, coleccionables y logros."
+  heading="Guía de GTA VI"
+  intro="Todo lo que necesitas para completar GTA VI al 100 %, ordenado para que encuentres lo que buscas de un vistazo."
+>
+  <!-- BLOQUES DE SECCIONES -->
+  {GUIDE_GROUPS.map((g, i) => {
+    const secciones = GUIDE_SECTIONS.filter((s) => s.grupo === g.id);
+    return (
+      <section class="guia-grupo" style={`--c: ${g.color}`} aria-labelledby={`grupo-${g.id}`}>
+        <header class="guia-grupo-head">
+          <span class="guia-grupo-icono"><Icono nombre={g.icono} /></span>
+          <div>
+            <h2 id={`grupo-${g.id}`}>{g.title}</h2>
+            <p class="muted small">{g.description}</p>
+          </div>
+        </header>
+        <div class:list={['guia-grid', { 'guia-grid-4': secciones.length === 4 }]}>
+          {secciones.map((s) => (
+            <GuiaSeccionCard {...s} href={enlaces[s.slug]} color={g.color} articulos={contar(s.slug)} tamano={i === 0 ? 'grande' : 'normal'} />
+          ))}
+        </div>
+      </section>
+    );
+  })}
+
+  <!-- ÚLTIMOS ARTÍCULOS -->
+  {ultimos.length > 0 && (
+    <section class="guia-grupo" aria-labelledby="guia-ultimos">
+      <header class="guia-grupo-head">
+        <span class="guia-grupo-icono"><Icono nombre="rayo" /></span>
+        <div>
+          <h2 id="guia-ultimos">Lo último en la guía</h2>
+          <p class="muted small">Los artículos añadidos más recientemente.</p>
+        </div>
+      </header>
+      <ul class="guia-ultimos">
+        {ultimos.map(({ e, seccion, color }) => (
+          <li>
+            <a href={`/guia/${e.id}/`} style={`--c: ${color}`}>
+              {e.data.imagen && (
+                <Image src={e.data.imagen} alt="" width={160} widths={[160, 320]} sizes="80px" format="webp" loading="lazy" />
+              )}
+              <span>
+                <span class="guia-etiqueta"><Icono nombre={seccion.icono} size={13} /> {seccion.title}</span>
+                <strong>{e.data.titulo}</strong>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <p class="small muted guia-credito">Imágenes: Rockstar Games.</p>
+</PageLayout>

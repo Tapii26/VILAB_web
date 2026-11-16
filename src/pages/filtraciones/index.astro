@@ -1,0 +1,17 @@
+---
+/** Filtraciones pendientes de confirmar. Las confirmadas y descartadas tienen su propia página. */
+import PageLayout from '../../layouts/PageLayout.astro';
+import FiltracionesListado from '../../components/FiltracionesListado.astro';
+import { getPublished } from '../../utils/content';
+
+const todas = await getPublished('filtraciones');
+---
+
+<PageLayout
+  title="Filtraciones y rumores de GTA 6"
+  description="Filtraciones, rumores y leaks de GTA 6 analizados y clasificados según lo probable que es que sean ciertos."
+  heading="Filtraciones y rumores"
+  intro="Información no oficial sobre GTA VI. Cada filtración indica lo probable que es que sea cierta."
+>
+  <FiltracionesListado estado="pendiente" todas={todas} vacio="Ahora mismo no hay filtraciones pendientes de confirmar." />
+</PageLayout>

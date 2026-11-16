@@ -1,0 +1,41 @@
+---
+/** Página de cada sección de la guía: /guia/vehiculos/, /guia/armas/... */
+import PageLayout from '../../../layouts/PageLayout.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { GUIDE_SECTIONS } from '../../../config/site';
+import { getPublished, splitGuideId } from '../../../utils/content';
+
+export async function getStaticPaths() {
+  const entradas = await getPublished('guia');
+  return GUIDE_SECTIONS.map((section) => ({
+    params: { seccion: section.slug },
+    props: {
+      section,
+      entradas: entradas
+        .filter((e) => splitGuideId(e.id).seccion === section.slug)
+        .sort((a, b) => a.data.orden - b.data.orden),
+    },
+  }));
+}
+
+const { section, entradas } = Astro.props;
+---
+
+<PageLayout
+  title={`${section.title} — Guía GTA 6`}
+  description={`${section.description} Guía de GTA 6 en español.`}
+  heading={section.title}
+  intro={section.description}
+  breadcrumbs={[{ label: 'Guía', href: '/guia/' }]}
+>
+  {entradas.length ? (
+    <div class="grid">
+      {entradas.map((e) => <PostCard href={`/guia/${e.id}/`} {...e.data} fecha={undefined} />)}
+    </div>
+  ) : (
+    <div class="notice">
+      <strong>Próximamente.</strong> Esta sección se completará cuando GTA VI esté disponible.
+      Mientras tanto, sigue las <a href="/noticias/">últimas noticias</a>.
+    </div>
+  )}
+</PageLayout>

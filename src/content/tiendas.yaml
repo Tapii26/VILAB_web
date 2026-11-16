@@ -1,0 +1,79 @@
+# TIENDAS DE «DÓNDE COMPRAR» (/donde-comprar/)
+# VI LAB no vende nada ni cobra comisión: cada botón abre la web de la tienda.
+# - id: identificador (minúsculas) · nombre: como se muestra · tipo: digital | fisica
+# - dominio: web a la que lleva (se muestra al usuario) · sigla: 1-2 letras del distintivo
+# - ps5 / xbox: enlace directo a la ficha del juego (si falta, no sale el botón)
+# - nota: frase corta opcional · orden: posición dentro de su grupo
+# Revisa los enlaces de vez en cuando: las tiendas cambian sus URL. Última revisión: 2026-11-12.
+
+- id: playstation-store
+  nombre: PlayStation Store
+  tipo: digital
+  dominio: store.playstation.com
+  sigla: PS
+  ps5: https://store.playstation.com/es-es/concept/10000730
+  nota: Tienda oficial de Sony. Se descarga directamente en tu PS5.
+  orden: 1
+
+- id: xbox-store
+  nombre: Xbox Store
+  tipo: digital
+  dominio: xbox.com
+  sigla: X
+  xbox: https://www.xbox.com/es-ES/games/grand-theft-auto-vi
+  nota: Tienda oficial de Microsoft. Se descarga directamente en tu Xbox Series.
+  orden: 2
+
+- id: amazon
+  nombre: Amazon
+  tipo: fisica
+  dominio: amazon.es
+  sigla: A
+  ps5: https://www.amazon.es/dp/B0GZH9BJYD
+  xbox: https://www.amazon.es/dp/B0GZVXB4DX
+  orden: 1
+
+- id: game
+  nombre: GAME
+  tipo: fisica
+  dominio: game.es
+  sigla: G
+  ps5: https://www.game.es/videojuegos/accion/playstation-5/grand-theft-auto-vi/263849
+  xbox: https://www.game.es/videojuegos/accion/xbox-series-x/grand-theft-auto-vi/263850
+  orden: 2
+
+- id: mediamarkt
+  nombre: MediaMarkt
+  tipo: fisica
+  dominio: mediamarkt.es
+  sigla: MM
+  ps5: https://www.mediamarkt.es/es/product/_ps5-grand-theft-auto-vi-codigo-en-la-caja-1669338.html
+  xbox: https://www.mediamarkt.es/es/product/_xbox-series-xors-grand-theft-auto-vi-codigo-en-la-caja-1669339.html
+  orden: 3
+
+- id: pccomponentes
+  nombre: PcComponentes
+  tipo: fisica
+  dominio: pccomponentes.com
+  sigla: PC
+  ps5: https://www.pccomponentes.com/grand-theft-auto-vi-standard-ed-ciab-ps5
+  xbox: https://www.pccomponentes.com/grand-theft-auto-vi-standard-ed-ciab-xbsx
+  orden: 4
+
+- id: fnac
+  nombre: Fnac
+  tipo: fisica
+  dominio: fnac.es
+  sigla: F
+  ps5: https://www.fnac.es/Grand-Theft-Auto-VI-Standard-Edition-PS5-CIAB-Videojuego-PS5/a13258797
+  xbox: https://www.fnac.es/Grand-Theft-Auto-VI-Standard-Edition-Xbox-Series-X-CIAB-Videojuego-Xbox-Series/a13258800
+  orden: 5
+
+- id: xtralife
+  nombre: Xtralife
+  tipo: fisica
+  dominio: xtralife.com
+  sigla: XL
+  ps5: https://www.xtralife.com/producto/grand-theft-auto-vi-edicion-estandar-ps5-edicion-estandar/112161
+  xbox: https://www.xtralife.com/producto/grand-theft-auto-vi-edicion-estandar-xbox-series-edicion-estandar/112165
+  orden: 6
