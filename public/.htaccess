@@ -1,4 +1,4 @@
-# Configuración de Apache (contenedor de Easypanel; ver Dockerfile)
+# Configuración de Apache para Hostinger
 
 RewriteEngine On
 
@@ -8,7 +8,7 @@ RewriteCond %{HTTP_HOST} ^(www\.)?vilabgaming\.(com|online)$ [NC,OR]
 RewriteCond %{HTTP_HOST} ^www\.vilabgaming\.es$ [NC]
 RewriteRule ^(.*)$ https://vilabgaming.es/$1 [L,R=301]
 
-# Forzar HTTPS (en Easypanel el HTTPS lo pone el proxy y avisa con X-Forwarded-Proto)
+# Forzar HTTPS (la segunda condición evita bucles si hay un proxy delante)
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
