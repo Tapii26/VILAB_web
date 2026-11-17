@@ -1,7 +1,7 @@
 # VI LAB GAMING — notas para Claude
 
 - Blog estático en español sobre GTA VI. Astro 7 (`output: static`, `build.format: directory`), sin framework UI.
-- Se despliega con GitHub: push a `main` → GitHub Actions (`publicar.yml`) genera `dist/` y lo guarda en la rama `hostinger` → Hostinger (GIT de hPanel) lo despliega en `public_html` (Apache + PHP). No hay servidor Node en producción.
+- Se despliega con GitHub + Easypanel (VPS de Hostinger): push a `main` → Easypanel construye el `Dockerfile` (Node genera `dist/`, luego `php:apache` lo sirve con `.htaccess` y `contacto.php`; correo por SMTP con msmtp y variables `SMTP_*`, ver `docker/arranque.sh`). El HTTPS lo pone el proxy de Easypanel (`X-Forwarded-Proto`). No hay servidor Node en producción.
 - Toda la configuración global vive en `src/config/site.ts`. No dupliques nombre, dominio, menú, fecha ni secciones en otros sitios.
 - El contenido son colecciones Markdown (`src/content.config.ts`): `noticias`, `filtraciones`, `guia`. Los campos del frontmatter están en español.
 - Cada artículo es una carpeta `<slug>/index.md` con sus imágenes al lado (`imagen: ./portada.jpg`, helper `image()` de Astro). Las carpetas o archivos que empiezan por `_` (las `_plantilla/`) se ignoran.
